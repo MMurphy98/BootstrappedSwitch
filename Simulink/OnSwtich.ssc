@@ -1,0 +1,53 @@
+component OnSwtich
+
+nodes
+    p = foundation.electrical.electrical;   
+    n = foundation.electrical.electrical;   
+    vp = foundation.electrical.electrical;  
+    vn = foundation.electrical.electrical;     
+end
+
+parameters
+    vbs = { 1.8, 'V' }; % Bootstrapped voltage
+    vth = { 0.56, 'V'}; % Threshold voltage
+    K = { 238.0, 'V^2/A'}; % V -> R
+end
+
+variables
+    i = { 0, 'A' }; % Resistor current
+    i2 = { 0, 'A'}; % sensor current
+
+end
+
+variables
+    vsd = { 0, 'V' }; % Voltage between S and D
+    v = { 0, 'V' }; % Voltage
+
+end
+
+branches
+    i   : p.i   -> n.i;
+    i2  : vp.i  -> vn.i;
+end
+
+intermediates
+     power_dissipated = v*i;
+end
+
+equations
+    v == p.v - n.v;
+    vsd == vp.v - vn.v;
+    i2 == 0;
+
+    if vsd < 0
+        v == i*K/(vbs - vth);
+    else
+        v == i*K/(vbs - vth + vsd);
+    end
+end
+
+annotations
+    [vp, p] : Side = left;
+    [vn, n] : Side = right;
+end
+end

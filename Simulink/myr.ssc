@@ -1,0 +1,50 @@
+component myr
+%Variable Resistor
+% Models a linear variable resistor. The relationship between voltage V
+% and current I is V=I*R where R is the numerical value presented at the
+% physical signal port R. The Maximum resistance parameter prevents 
+% negative resistance values.
+%
+% Connections + and - are conserving electrical ports corresponding to
+% the positive and negative terminals of the resistor respectively. The
+% current is positive if it flows from positive to negative, and the
+% voltage across the resistor is given by V(+)-V(-).
+
+% Copyright 2005-2020 The MathWorks, Inc.
+inputs
+    R = { 0.0, 'Ohm' }; % R:left
+end
+
+nodes
+    p = foundation.electrical.electrical; % +:left
+    n = foundation.electrical.electrical; % -:right
+end
+
+parameters
+    Rmax = { 200, 'Ohm' }; % Maximum resistance R>=0
+end
+
+variables
+    i = { 0, 'A' }; % Current
+    v = { 0, 'V' }; % Voltage
+end
+
+branches
+    i : p.i -> n.i;
+end
+
+intermediates
+     power_dissipated = v*i;
+end
+
+equations
+    assert(Rmax>=0)
+    v == p.v - n.v;
+    if R < Rmax
+        v == i*R;
+    else
+        v == i*Rmax;
+    end
+end
+
+end
