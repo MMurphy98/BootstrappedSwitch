@@ -35,3 +35,6 @@
   - **Output:** Rout(Ohm) behavies like S D exchanged MOSFET;
 - ✔︎`Boostrapped_Switch_v1.slx`,`Boostrapped_Switch_v2.slx`: the simulation files of **onSwitch.scc**
   - **Note:** the output signal is exported to the workspace to calculate the THD, by the file `Spectrum_Analysis.mlx`;
+
+---
+
