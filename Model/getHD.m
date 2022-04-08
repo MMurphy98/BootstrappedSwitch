@@ -12,8 +12,12 @@ function [HD] = getHD(Ron, V0, C1, Fin)
             a = [1, -K/(4*pi), K/(18*pi); 
                 -K/2, 1-K/(6*pi), 0;
                 -2*K/(3*pi), -K/8, 1-K/(5*pi)];
+%              a = [1+K/(pi), 0, -K/(6*pi); 
+%                 -K, 1-K/(3*pi), 0;
+%                 2*K/(3*pi), -K/4, 1+3*K/(5*pi)];
             b = [Ron(i); 0; 0];  
             x = a\b;
+            mag2db(abs(x))
             k1 = x(2) / 4;
             k2 = x(3) / 6;
             V_dis = win*C1.*[k1, k2];
