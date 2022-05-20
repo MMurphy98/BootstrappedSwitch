@@ -1,6 +1,6 @@
-Fs = 5E6;
+Fs = 10E6;
 ts = 1/Fs;
-Fin = 51/512*Fs;
+Fin = 499/1024*Fs;
 win = 2*pi *Fin;
 C1 = 38.72E-12;
 Vin = 0.895;
