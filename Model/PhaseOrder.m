@@ -26,5 +26,5 @@ function T = PhaseOrder(x, Fi, Fs)
     
     % sorted the table by PhaseOrder
     T = sortrows(T, "PhaseOrder");
-    
+
 end
