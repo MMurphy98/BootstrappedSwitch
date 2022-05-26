@@ -3,7 +3,7 @@
 > 对自举开关的失真行为进行建模，旨在找到各个频率下**影响自举开关线性度的误差源**，从而优化自举开关设计，实现高速、高线性度的自举开关结构，**用于高速、高精度 ADC 的采样前端**。
 
 ## :pushpin:TODO
-- [ ] 完成关于在导通过程中源漏互换的**显式解**；
+- [x] 完成关于在导通过程中源漏互换的**显式解**；
 - [ ] 完成关于在导通过程中寄生电容的**误差源建模**;
 - [ ] 完成开启瞬间的电荷分配的**误差源建模**；
   - [ ] 需要注意关于输出端 Vout 的电压值对电荷分配的影响；
@@ -101,13 +101,20 @@ B(PhaseOrder_Example_mlx.m) --> D(PhaseOrder_Example.m)
 graph BT
 A1(getHD.m) --> B(getHD_new.m)
 A2(Plot_alpha_L.m) --> C(Model_SD_Exchange_MLX.mlx)
-B --> C
+B --> E(getHD_Calculation.m)
+E --> F(getHD3_Simplified.m)
 C --> D(Model_SD_Exchange.m)
+F --> C
 
 ```
 
 - `getHD.m`: 根据系数矩阵计算输出信号的二次谐波与三次谐波，但是没有考虑到长度 L 对 阈值电压 Vth 的影响，基本已弃用；
 
-- :star: `getHD_new.m`：根据系数矩阵计算输出信号的二次谐波与三次谐波，**用参数 α 体现长度 L 的影响**；
+- `getHD_new.m`：根据系数矩阵计算输出信号的二次谐波与三次谐波，**用参数 α 体现长度 L 的影响**；
   
 - :star: `Plot_alpha_L.m`： 作为 **getHD_new.m** 的查表文件，记录了1um内的常用α值；
+
+- `getHD_Calculation.m`：根据 Wolfram Mathematica 解的显示解表达式；
+
+- :star:`getHD3_Simplified.m`：由 **getHD_Calculation.m** 化简改变得到，尽计算HD3，但表达式非常简单；
+
