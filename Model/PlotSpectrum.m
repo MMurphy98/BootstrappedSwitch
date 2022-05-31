@@ -4,6 +4,12 @@ function [f, P] = PlotSpectrum(s, Fs)
 %   Fs: sample frequency;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    % get colume signal
+    if isrow(s)
+        s = s';
+    end
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     % get the amplititude of spectrum
     N = length(s);
     f = Fs * (0:(N/2)) / N;
