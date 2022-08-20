@@ -11,6 +11,8 @@ function [HD] = getHD_new(Ron, V0, C1, Fin, alpha)
 
             K1 = V0*win*C1*Ron(i) / (VDD-VTH) * (alpha-0.5);
             K2 = V0*win*C1*Ron(i) / (VDD-VTH) * (0.5);
+%             K1 = V0*win*C1*Ron(i) / (VDD-VTH) * (alpha-1)
+%             K2 = V0*win*C1*Ron(i) / (VDD-VTH) * (1)
             P = K1 - K2;
             Q = K1 + K2;
 %             K = V0*win*C1*Ron(i) / (VDD-VTH) / 2;

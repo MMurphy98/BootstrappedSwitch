@@ -5,15 +5,18 @@ function [HD] = getHD_Cap_Track(V0, C1, Fin, Carray)
     VDD = 1.8;
     VTH = 0.457;
     mun = 280E-6;
-    mWL = 32*3/0.2;
+    mWL = 32*12/0.2;
     
-    Ctot = sum(Carray);
+    Cp1 = 0;
+    Cp2 = 0.34;
+    Cp3 = 0.34;
 
+    Ctot = sum(Carray) + sum([Cp1, Cp2, Cp3]);
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % calculate Vgs
-    Vgs1 = V0 * Carray(2) / Ctot;
-    Vgs0 = (Carray(1)*VDD - sum(Carray(2:3))*VDD/2 - ...
-        Carray(end) * 0.18) / Ctot;
+    Vgs1 = V0 * (Carray(2)+Cp1) / Ctot;
+    Vgs0 = (Carray(1)*VDD - (sum(Carray(2:3)) + Cp1 + 1/3*Cp2)*VDD/2 - ...
+        (Carray(end)+1/3*Cp3) * 0.183) / Ctot;
     KV = Vgs1 / (Vgs0 - VTH);
 
     Ron = 1/((Vgs0-VTH)*(mun * mWL));

@@ -14,8 +14,8 @@ function HD3 = getHD_Calculation(Ron, V0, C1, Fin, alpha)
     win = 2*pi .* Fin;
 %     P = V0*C1/(VDD-VTH)*(alpha-1) .* Ron .*win
 %     Q = V0*C1/(VDD-VTH)*(alpha) .* Ron .*win
-    K1 = V0*C1/(VDD-VTH)*(alpha - 0.5) .*Ron .*win;
-    K2 = V0*C1/(VDD-VTH)*(0.5) .*Ron .*win;
+    K1 = V0*C1/(VDD-VTH)*(alpha) .*Ron .*win;
+    K2 = V0*C1/(VDD-VTH)*(1) .*Ron .*win;
     P = K1 - K2;
     Q = K1 + K2;
     
